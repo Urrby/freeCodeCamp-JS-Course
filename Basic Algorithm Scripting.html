@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Basic and Advance Algorithm Scripting</title>
+  </head>
+  <body>
+    <h1>Basic and Advance Algorithm Scripting</h1>
+    <script>
+
+// BASIC
+/*
+The algorithm to convert from Celsius to Fahrenheit is the temperature in Celsius times 9/5, plus 32.
+You are given a variable celsius representing a temperature in Celsius. 
+Use the variable fahrenheit already defined and assign it the Fahrenheit temperature equivalent to the given Celsius temperature. 
+Use the algorithm mentioned above to help convert the Celsius temperature to Fahrenheit.
+*/
+
+function convertToF(celsius) {
+  let fahrenheit = celsius * 9/5 + 32;
+  return fahrenheit;
+}
+console.log(convertToF(30));
+
+/*
+Reverse the provided string.
+You may need to turn the string into an array before you can reverse it.
+Your result must be a string.
+*/
+
+function reverseString(str) {
+  return str.split("").reverse().join("");
+}
+console.log(reverseString("hello"));
+
+/*
+Return the factorial of the provided integer.
+If the integer is represented with the letter n, a factorial is the product of all positive integers less than or equal to n.
+Factorials are often represented with the shorthand notation n!
+For example: 5! = 1 * 2 * 3 * 4 * 5 = 120
+Only integers greater than or equal to zero will be supplied to the function.
+*/
+
+function factorialize(num) {
+    let factorial = 1;
+    for(let i = 1; i <= num; i++) {
+        factorial *=  i;
+    }
+    return factorial;
+}
+console.log(factorialize(5));
+
+/*
+Return the length of the longest word in the provided sentence.
+Your response should be a number.
+*/
+
+function findLongestWordLength(str) {
+  let wordArr = str.split(" ");
+  let largestNum = [] ;
+    for(let i = 1; i < wordArr.length; i++) {
+        largestNum.push(wordArr[i].length)
+    }
+    return largestNum.reduce((a,b) => Math.max(a,b));
+
+}
+console.log(findLongestWordLength("The quick brown fox jumped over the lazy dog"));
+
+/*
+Return an array consisting of the largest number from each provided sub-array. For simplicity, the provided array will contain exactly 4 sub-arrays.
+Remember, you can iterate through an array with a simple for loop, and access each member with array syntax arr[i].
+*/
+
+function largestOfFour(arr) {
+    let largNumArr = [];
+    for(let i = 0; i < arr.length; i++) {
+      largNumArr.push(arr[i].reduce((a,b) => Math.max(a,b)));
+    }
+    return largNumArr;
+}
+
+console.log(largestOfFour([[4, 5, 1, 3], [13, 27, 18, 26], [32, 35, 37, 39], [1000, 1001, 857, 1]]));
+
+/*
+Check if a string (first argument, str) ends with the given target string (second argument, target).
+This challenge can be solved with the .endsWith() method, 
+which was introduced in ES2015. But for the purpose of this challenge, we would like you to use one of the JavaScript substring methods instead.
+*/
+
+function confirmEnding(str, target) {
+    return str.slice(str.length - target.length) === target;
+}
+console.log(confirmEnding("Bastian", "n"));
+
+/*
+Repeat a given string str (first argument) for num times (second argument). Return an empty string if num is not a positive number. 
+For the purpose of this challenge, do not use the built-in .repeat() method.
+*/
+
+function repeatStringNumTimes(str, num) {
+  let arr = [];
+  for(let i = 0; i < num; i++) {
+    arr.push(str);
+  }
+  return arr.join("");
+}
+console.log(repeatStringNumTimes("abc", -1));
+console.log(repeatStringNumTimes("*", 8))
+
+/*
+Truncate a string (first argument) if it is longer than the given maximum string length (second argument). Return the truncated string with a ... ending.
+*/
+
+function truncateString(str, num) {
+  let stringArr = str.split("");
+  if(stringArr.length > num) {
+    let newArr = stringArr.splice(0, num);
+    newArr.push("...");
+    return newArr.join("");
+  } else {
+      return str;
+  }
+}
+console.log(truncateString("A-tisket a-tasket A green and yellow basket", 8));
+console.log(truncateString("A-tisket a-tasket A green and yellow basket", 98));
+
+/*
+Create a function that looks through an array arr and returns the first element in it that passes a 'truth test'. 
+This means that given an element x, the 'truth test' is passed if func(x) is true. If no element passes the test, return undefined.
+*/
+function findElement(arr, func) {
+    return arr.find(func);
+}
+
+console.log(findElement([1, 2, 3, 4], num => num % 2 === 0));
+console.log(findElement([1, 3, 5, 9], function(num) { return num % 2 === 0; }));
+
+/*
+Check if a value is classified as a boolean primitive. Return true or false.
+Boolean primitives are true and false.
+*/
+function booWho(bool) {
+  return typeof bool === "boolean" ? true : false;
+}
+console.log(booWho(true));
+console.log(booWho(false));
+console.log(booWho(1));
+
+/*
+Return the provided string with the first letter of each word capitalized. Make sure the rest of the word is in lower case.
+For the purpose of this exercise, you should also capitalize connecting words like "the" and "of".
+*/
+function titleCase(str) {
+    let stringArr = str.toLowerCase().split(" ").map(el => el[0].toUpperCase() + el.slice(1)).join(" ");
+    return stringArr;
+}
+console.log(titleCase("I'm a little tea pot"));
+console.log(titleCase("sHoRt AnD sToUt"))
+console.log(titleCase("HERE IS MY HANDLE HERE IS MY SPOUT"))
+
+/*
+You are given two arrays and an index.
+Copy each element of the first array into the second array, in order.
+Begin inserting elements at index n of the second array.
+Return the resulting array. The input arrays should remain the same after the function runs.
+*/
+function frankenSplice(arr1, arr2, n) {
+  let newArr = [...arr2.slice(0,n),...arr1,...arr2.slice(n)];
+  return newArr;
+}
+console.log(frankenSplice([1, 2, 3], [4, 5, 6], 1));
+console.log(frankenSplice(["claw", "tentacle"], ["head", "shoulders", "knees", "toes"], 2));
+
+/*
+Remove all falsy values from an array.
+Falsy values in JavaScript are false, null, 0, "", undefined, and NaN.
+Hint: Try converting each value to a Boolean.
+*/
+function bouncer(arr) {
+    return arr.filter(el => el)
+}
+
+console.log(bouncer([7, "ate", "", false, 9]));
+console.log(bouncer([false, null, 0, NaN, undefined, ""]));
+console.log(bouncer([null, NaN, 1, 2, undefined]));
+
+/*
+Return the lowest index at which a value (second argument) should be inserted into an array (first argument) once it has been sorted. 
+The returned value should be a number.
+For example, getIndexToIns([1,2,3,4], 1.5) should return 1 because it is greater than 1 (index 0), but less than 2 (index 1).
+Likewise, getIndexToIns([20,3,5], 19) should return 2 because once the array has been sorted it will look like [3,5,20] 
+and 19 is less than 20 (index 2) and greater than 5 (index 1).
+*/
+function getIndexToIns(arr, num) {
+  if(arr.length <= 0) {
+    return 0;
+  } else {
+    let sortedArr = arr.sort((a,b) => a - b);
+    for(let i = 0; i < sortedArr.length; i++) {
+      if(num > sortedArr[sortedArr.length - 1]) {
+        return i + sortedArr.length;
+      } else if(num > sortedArr[i]) {
+       
+      } else {
+        return i;
+      }
+    }
+  }
+}
+
+console.log(getIndexToIns([10, 20, 30, 40, 50], 35)); //3
+console.log(getIndexToIns([10, 20, 30, 40, 50], 30)); //2
+console.log(getIndexToIns([40, 60], 50)); //1
+console.log(getIndexToIns([3, 10, 5], 3)) //0
+console.log(getIndexToIns([], 1)) //0
+console.log(getIndexToIns([2, 5, 10], 15)) //3
+
+/*
+Return true if the string in the first element of the array contains all of the letters of the string in the second element of the array.
+For example, ["hello", "Hello"], should return true because all of the letters in the second string are present in the first, ignoring case.
+The arguments ["hello", "hey"] should return false because the string "hello" does not contain a "y".
+Lastly, ["Alien", "line"], should return true because all of the letters in "line" are present in "Alien".
+*/
+function mutation(arr) {
+  let firstString = arr[0].toLowerCase();
+  let secondString = arr[1].toLowerCase();
+  for(let i = 0; i < secondString.length; i++) {
+    if(firstString.indexOf(secondString[i]) < 0) {
+      return false;
+    }
+  }
+  return true;
+}
+
+console.log(mutation(["hello", "hey"])); //false
+console.log(mutation(["Alien", "line"])); //true
+console.log(mutation(["floor", "for"])); //true
+console.log(mutation(["hello", "neo"])); //false
+
+/*
+Write a function that splits an array (first argument) into groups the length of size (second argument) and returns them as a two-dimensional array.
+*/
+function chunkArrayInGroups(arr, size) {
+  let resultArr = [];
+  while(arr.length) {
+    resultArr.push(arr.splice(0, size))
+  }
+  return resultArr;
+}
+
+console.log(chunkArrayInGroups(["a", "b", "c", "d"], 2));
+console.log(chunkArrayInGroups([0, 1, 2, 3, 4, 5], 3));
+console.log(chunkArrayInGroups([0, 1, 2, 3, 4, 5, 6], 3));
+
+/*
+Fill in the urlSlug function so it converts a string title and returns the hyphenated version for the URL. 
+You can use any of the methods covered in this section, and don't use replace. Here are the requirements:
+The input is a string with spaces and title-cased words
+The output is a string with the spaces between words replaced by a hyphen (-)
+The output should be all lower-cased letters
+The output should not have any spaces
+Use functional programing
+*/
+function urlSlug(title) {
+  return title.toLowerCase().trim().split(/\s+/).join("-");
+
+}
+console.log(urlSlug("Winter Is Coming"));
+console.log(urlSlug(" Winter Is Coming"));
+console.log(urlSlug(" Winter Is  Coming"))
+console.log(urlSlug("A Mind Needs Books Like A Sword Needs A Whetstone"))
+
+// ADVANCE
+/*
+We'll pass you an array of two numbers. Return the sum of those two numbers plus the sum of all the numbers between them. 
+The lowest number will not always come first.
+For example, sumAll([4,1]) should return 10 because sum of all the numbers between 1 and 4 (both inclusive) is 10.
+*/
+function sumAll(arr) {
+  let sortedArr = arr.sort((a,b) => a - b);
+  for(let i = sortedArr[0] + 1; i < sortedArr[1]; i++) {
+    sortedArr.push(i);
+  }
+  return sortedArr.reduce((acc, value) => acc + value);  
+}
+
+console.log(sumAll([1, 4]));
+console.log(sumAll([4, 1]));
+console.log(sumAll([5, 10]));
+
+/*
+Compare two arrays and return a new array with any items only found in one of the two given arrays, but not both.
+In other words, return the symmetric difference of the two arrays.
+Note
+You can return the array with its elements in any order.
+*/
+function diffArray(arr1, arr2) {
+  return arr1
+    .concat(arr2)
+    .filter(el => !(arr1.includes(el) && arr2.includes(el)));
+  
+}
+
+console.log(diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5])); // 4
+console.log(diffArray(["diorite", "andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"])); // pink wool
+console.log(diffArray([1, "calf", 3, "piglet"], [1, "calf", 3, 4])) // piglet, 4
+console.log(destroyer(["possum", "trollo", 12, "safari", "hotdog", 92, 65, "grandma", "bugati", "trojan", "yacht"], "yacht", "possum", "trollo", "safari", "hotdog", "grandma", "bugati", "trojan"));
+
+/*
+You will be provided with an initial array (the first argument in the destroyer function), followed by one or more arguments.
+Remove all elements from the initial array that are of the same value as these arguments.
+Note
+You have to use the arguments object.
+*/
+function destroyer(arr) {
+ let argumentsArr = [...arguments];
+ argumentsArr.shift();
+ return arr.filter(el => !(argumentsArr.includes(el)));
+}
+ 
+console.log(destroyer([1, 2, 3, 1, 2, 3], 2, 3)); // [1, 1]
+console.log(destroyer([3, 5, 1, 2, 2], 2, 3, 5)); // [1]
+
+/*
+Make a function that looks through an array of objects (first argument) and returns an array of all objects that have matching name and value pairs 
+(second argument). Each name and value pair of the source object has to be present in the object from the collection if it is to be included in the returned array.
+For example, if the first argument is [{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }],
+and the second argument is { last: "Capulet" }, then you must return the third object from the array (the first argument),
+because it contains the name and its value, that was passed on as the second argument.
+*/
+function whatIsInAName(collection, source) {
+  var srcKeys = Object.keys(source);
+  return collection.filter(function(obj) {
+    return srcKeys.every(function(key) {
+      return obj.hasOwnProperty(key) && obj[key] === source[key];
+    });
+  });
+}
+
+console.log(whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" }));
+// [{ first: "Tybalt", last: "Capulet" }]
+console.log(whatIsInAName([{ "apple": 1 }, { "apple": 1 }, { "apple": 1, "bat": 2 }], { "apple": 1 }))
+// [{ "apple": 1 }, { "apple": 1 }, { "apple": 1, "bat": 2 }]
+console.log(whatIsInAName([{ "apple": 1, "bat": 2 }, { "apple": 1 }, { "apple": 1, "bat": 2, "cookie": 2 }, { "bat":2 }], { "apple": 1, "bat": 2 }));
+// [{ "apple": 1, "bat": 2 }, { "apple": 1, "bat": 2, "cookie":2 }]
+
+/*
+Convert a string to spinal case. Spinal case is all-lowercase-words-joined-by-dashes.
+*/
+function spinalCase(str) {
+  return str
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/\s+|_+/g, "-")
+    .toLowerCase();
+}
+
+console.log(spinalCase('This Is Spinal Tap'));
+console.log(spinalCase("Teletubbies say Eh-oh"));
+console.log(spinalCase("The_Andy_Griffith_Show"));
+console.log(spinalCase("AllThe-small Things"));
+
+/*
+Pig Latin is a way of altering English Words. The rules are as follows:
+- If a word begins with a consonant, take the first consonant or consonant cluster, move it to the end of the word, and add "ay" to it.
+- If a word begins with a vowel, just add "way" at the end.
+*/
+
+function translatePigLatin(str) {
+  let vowels = /[aeiou]/gi;
+  let stringArr = str.split("");
+   if(stringArr[0].match(vowels)) {
+     return stringArr.join("") + "way";
+   } else {
+     if(!str.match(vowels)) {
+       return str + "ay";
+     }
+     else {
+      for(let i = 0; i < stringArr.length; i++) {
+       if(stringArr[i].match(vowels)) {
+         let chunk = stringArr.splice(0,i);
+         let result = [...stringArr, ...chunk];
+         return result.join("") + "ay";
+       } 
+      }
+     }
+   }
+}
+
+console.log(translatePigLatin("california")); // "aliforniacay"
+console.log(translatePigLatin("paragraphs")); // "aragraphspay"
+console.log(translatePigLatin("glove")); // oveglay
+console.log(translatePigLatin("algorithm")) // algorithmway
+console.log(translatePigLatin("schwartz")); // "artzschway"
+console.log(translatePigLatin("rhythm")) // "rhythmay"
+
+/*
+Perform a search and replace on the sentence using the arguments provided and return the new sentence.
+First argument is the sentence to perform the search and replace on.
+Second argument is the word that you will be replacing (before).
+Third argument is what you will be replacing the second argument with (after).
+Preserve the case of the first character in the original word when you are replacing it.
+ For example if you mean to replace the word "Book" with the word "dog", it should be replaced as "Dog"
+*/
+function myReplace(str, before, after) {
+  /[A-Z]/.test(before) === true ? after = after.charAt(0).toUpperCase() + after.slice(1) : after = after.charAt(0).toLowerCase() + after.slice(1);
+  return str.replace(before, after);
+}
+
+console.log(myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped"));
+console.log(myReplace("I think we should look up there", "up", "Down"));
+console.log(myReplace("His name is Tom", "Tom", "john"));
+/*
+The DNA strand is missing the pairing element. Take each character, get its pair, and return the results as a 2d array.
+Base pairs are a pair of AT and CG. Match the missing element to the provided character.
+Return the provided character as the first element in each array.
+For example, for the input GCG, return [["G", "C"], ["C","G"],["G", "C"]]
+The character and its pair are paired up in an array, and all the arrays are grouped into one encapsulating array.
+*/
+function pairElement(str) {
+  let elelemntArr = str.split("").map(el => {
+    switch(el) {
+      case "G":
+        return [...el, "C"];
+        break;
+      case "C":
+      return [...el, "G"];
+        break;
+        case "T":
+      return [...el, "A"];
+        break;
+        case "A":
+      return [...el, "T"];
+        break;
+    }
+  });
+  return elelemntArr;
+}
+
+console.log(pairElement("GCG"));
+console.log(pairElement("ATCGA"));
+console.log(pairElement("TTGAG"));
+console.log(pairElement("CTCTA"));
+
+/*
+Find the missing letter in the passed letter range and return it.
+If all letters are present in the range, return undefined.
+*/
+function fearNotLetter(str) {
+  let alphabet = "abcdefghijklmnopqrstuvwxyz";
+  let start = alphabet.indexOf(str[0]);
+  let chunk = alphabet.slice(start, start + (str.length + 1)).split("");
+  return alphabet.length === str.length ? undefined : chunk.filter(el => !(str.split("").includes(el))).join("");
+}
+
+console.log(fearNotLetter("abce")); // d
+console.log(fearNotLetter("abcdefghjklmno")); // i
+console.log(fearNotLetter("stvwx")); // u
+console.log(fearNotLetter("bcdf")); // e
+console.log(fearNotLetter("abcdefghijklmnopqrstuvwxyz")); // undefined
+
+/*
+Write a function that takes two or more arrays and returns a new array of unique values in the order of the original provided arrays.
+In other words, all values present from all arrays should be included in their original order, but with no duplicates in the final array.
+The unique numbers should be sorted by their original order, but the final array should not be sorted in numerical order.
+*/
+function uniteUnique(arr) {
+  let arrgumentsArr = [].concat(...arguments);
+  return arrgumentsArr.filter((el, index) => arrgumentsArr.indexOf(el) === index);
+}
+console.log(uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1])); // [1, 3, 2, 5, 4]
+console.log(uniteUnique([1, 2, 3], [5, 2, 1])); // [1, 2, 3, 5]
+console.log(uniteUnique([1, 2, 3], [5, 2, 1, 4], [2, 1], [6, 7, 8])); // [1, 2, 3, 5, 4, 6, 7, 8]
+
+/*
+Convert the characters &, <, >, " (double quote), and ' (apostrophe), in a string to their corresponding HTML entities.
+*/
+function convertHTML(str) {
+  return str.replace(/&|<|>|"|'/g, function(el) {
+    switch(el) {
+      case "&":
+        return "&amp;";
+        break;
+        case "<":
+        return "&lt;";
+        break;
+        case ">":
+        return "&gt;";
+        break;
+        case '"':
+        return "&quot;";
+        break;
+        case "'":
+        return "&apos;";
+        break;
+    }
+  })
+}
+console.log(convertHTML("Dolce & Gabbana"));
+console.log(convertHTML("Hamburgers < Pizza < Tacos"));
+console.log(convertHTML('Stuff in "quotation marks"'));
+console.log(convertHTML("Schindler's List"));
+
+/*
+Given a positive integer num, return the sum of all odd Fibonacci numbers that are less than or equal to num.
+The first two numbers in the Fibonacci sequence are 1 and 1. Every additional number in the sequence is the sum of the two previous numbers. 
+The first six numbers of the Fibonacci sequence are 1, 1, 2, 3, 5 and 8.
+For example, sumFibs(10) should return 10 because all odd Fibonacci numbers less than or equal to 10 are 1, 1, 3, and 5.
+*/
+
+// NOT DOING FIBONNACI
+
+/*
+A prime number is a whole number greater than 1 with exactly two divisors: 1 and itself. 
+For example, 2 is a prime number because it is only divisible by 1 and 2. 
+In contrast, 4 is not prime since it is divisible by 1, 2 and 4.
+Rewrite sumPrimes so it returns the sum of all prime numbers that are less than or equal to num.
+*/
+function sumPrimes(num) {
+  function primeFactorsTo(max) {
+    let store  = [], i, j, primes = [];
+    for (i = 2; i <= max; ++i) 
+    {
+        if (!store [i]) 
+          {
+            primes.push(i);
+            for (j = i << 1; j <= max; j += i) 
+            {
+                store[j] = true;
+            }
+        }
+    }
+    return primes;
+  }
+  return primeFactorsTo(num).reduce((a, b) => a + b); 
+}
+console.log(sumPrimes(10)); // 17
+console.log(sumPrimes(977)) // 73156
+
+/*
+Given the array arr, iterate through and remove each element starting from the first element (the 0 index)
+until the function func returns true when the iterated element is passed through it.
+Then return the rest of the array once the condition is satisfied, otherwise, arr should be returned as an empty array.
+*/
+function dropElements(arr, func) {
+  if(arr.filter(func).length === 0) {
+    return []
+  } else {
+    let startingPoint = arr.find(func);
+    return arr.slice(arr.indexOf(startingPoint));
+  }
+}
+console.log(dropElements([1, 2, 3, 4], function(n) {return n >= 3;})); // [3, 4]
+console.log(dropElements([1, 2, 3, 4], function(n) {return n > 5;})); // []
+console.log(dropElements([1, 2, 3, 7, 4], function(n) {return n > 3;})); // [7, 4]
+console.log(dropElements([1, 2, 3, 9, 2], function(n) {return n > 2;})); // [3, 9, 2]
+console.log(dropElements([0, 1, 0, 1], function(n) {return n === 1;})); // [1, 0, 1]
+
+/*
+Flatten a nested array. You must account for varying levels of nesting.
+*/
+function steamrollArray(arr) {
+  return arr.flat(Infinity);
+}
+console.log(steamrollArray([[["a"]], [["b"]]]));
+console.log(steamrollArray([1, [2], [3, [[4]]]]));
+console.log(steamrollArray([1, {}, [3, [[4]]]]));
+
+/*
+Return an English translated sentence of the passed binary string.
+The binary string will be space separated.
+*/
+function binaryAgent(str) {
+  return str.split(" ").map(el => String.fromCharCode(parseInt(el, 2).toString(10))).join("");
+}
+console.log(binaryAgent("01000001 01110010 01100101 01101110 00100111 01110100 00100000 01100010 01101111 01101110 01100110 01101001 01110010 01100101 01110011 00100000 01100110 01110101 01101110 00100001 00111111"));
+// "Aren't bonfires fun!?"
+console.log(binaryAgent("01001001 00100000 01101100 01101111 01110110 01100101 00100000 01000110 01110010 01100101 01100101 01000011 01101111 01100100 01100101 01000011 01100001 01101101 01110000 00100001"));
+// "I love FreeCodeCamp!"
+
+/*
+Check if the predicate (second argument) is truthy on all elements of a collection (first argument).
+In other words, you are given an array collection of objects. The predicate pre will be an object property and you need to return true if its value is truthy. 
+Otherwise, return false.
+In JavaScript, truthy values are values that translate to true when evaluated in a Boolean context.
+Remember, you can access object properties through either dot notation or [] notation.
+*/
+function truthCheck(collection, pre) {
+  return collection.every(function(element) {
+    return element.hasOwnProperty(pre) && Boolean(element[pre]);
+  });
+}
+console.log(truthCheck([{"user": "Tinky-Winky", "sex": "male"}, {"user": "Dipsy", "sex": "male"}, {"user": "Laa-Laa", "sex": "female"}, {"user": "Po", "sex": "female"}], "sex"));
+// True
+console.log(truthCheck([{"user": "Tinky-Winky", "sex": "male"}, {"user": "Dipsy"}, {"user": "Laa-Laa", "sex": "female"}, {"user": "Po", "sex": "female"}], "sex"));
+// False
+console.log(truthCheck([{"user": "Tinky-Winky", "sex": "male", "age": 0}, {"user": "Dipsy", "sex": "male", "age": 3}, {"user": "Laa-Laa", "sex": "female", "age": 5}, {"user": "Po", "sex": "female", "age": 4}], "age"));
+// False
+
+/*
+Create a function that sums two arguments together. If only one argument is provided, then return a function that expects one argument and returns the sum.
+For example, addTogether(2, 3) should return 5, and addTogether(2) should return a function.
+Calling this returned function with a single argument will then return the sum:
+var sumTwoAnd = addTogether(2);
+sumTwoAnd(3) returns 5.
+If either argument isn't a valid number, return undefined.
+*/
+function addTogether() {
+  let argArr = [...arguments];
+  if(argArr.every(el => Number.isInteger(el))) {
+    if(arguments.length > 1) {
+    return arguments[0] + arguments[1];
+  } else {
+    let single = arguments[0];
+    return function(arg2) {
+      if(Number.isInteger(single) && Number.isInteger(arg2))
+      return single + arg2
+    }
+  }
+}
+return undefined;
+}
+
+console.log(addTogether(2,3)); // 5
+console.log(addTogether(2)([3])); // 5
+console.log(addTogether(5)(7)) // 12
+console.log(addTogether(23, 30)); // 53
+console.log(addTogether(2, "3")) // Undefined
+
+/*
+Fill in the object constructor with the following methods below:
+getFirstName()
+getLastName()
+getFullName()
+setFirstName(first)
+setLastName(last)
+setFullName(firstAndLast)
+Run the tests to see the expected output for each method. The methods that take an argument must accept only one argument and it has to be a string. 
+These methods must be the only available means of interacting with the object.
+*/
+var Person = function(firstAndLast) {
+  // Only change code below this line
+  // Complete the method below and implement the others similarly
+  this.getFirstName = function() {
+    return firstAndLast.split(" ")[0];
+  };
+  this.getLastName = function() {
+    return firstAndLast.split(" ")[1];
+  };
+  this.getFullName = function() {
+    return firstAndLast;
+  };
+  this.setFirstName = function(first) {
+    firstAndLast = first + " " + firstAndLast.split(" ")[1];
+    return firstAndLast.split(" ")[0];
+  };
+  this.setLastName = function(last) {
+    firstAndLast = firstAndLast.split(" ")[0] + " " + last;
+    return firstAndLast.split(" ")[1];
+  };
+  this.setFullName = function(name) {
+    firstAndLast = name;
+    return name;
+  };
+};
+
+var bob = new Person('Bob Ross');
+
+console.log(bob.getFirstName());
+console.log(bob.getLastName());
+console.log(bob.getFullName());
+console.log(bob.setFirstName("Haskell"));
+console.log(bob.setLastName("Curry"));
+console.log(bob.setFullName("Haskell Curry"));
+console.log(bob.getFullName());
+
+
+/*
+Return a new array that transforms the elements' average altitude into their orbital periods (in seconds).
+The array will contain objects in the format {name: 'name', avgAlt: avgAlt}.
+You can read about orbital periods on Wikipedia.
+The values should be rounded to the nearest whole number. The body being orbited is Earth.
+The radius of the earth is 6367.4447 kilometers, and the GM value of earth is 398600.4418 km3s-2.
+*/
+function orbitalPeriod(arr) {
+  const GM = 398600.4418;
+  const earthRadius = 6367.4447;
+  return arr.map(({ name, avgAlt }) => {
+    const earth = earthRadius + avgAlt;
+    const orbitalPeriod = Math.round(2 * Math.PI * Math.sqrt(Math.pow(earth, 3)/GM));
+    return { name, orbitalPeriod };
+  });
+}
+console.log(orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]));
+
+/*
+Return true if the given string is a palindrome. Otherwise, return false.
+A palindrome is a word or sentence that's spelled the same way both forward and backward, ignoring punctuation, case, and spacing.
+Note: You'll need to remove all non-alphanumeric characters (punctuation, spaces and symbols)
+and turn everything into the same case (lower or upper case) in order to check for palindromes.
+We'll pass strings with varying formats, such as "racecar", "RaceCar", and "race CAR" among others.
+We'll also pass strings with special symbols, such as "2A3*3a2", "2A3 3a2", and "2_A3*3#A2".
+*/
+
+function palindrome(str) {
+  let stringArr = str.toLowerCase().replace(/[^0-9a-z]/gi, '').split("");
+  let reversedArr = [...stringArr].reverse();
+  return stringArr.every((el,index) => {
+    return stringArr[index] === reversedArr[index] ? true : false;
+  });
+}
+
+console.log(palindrome("eye")); // True
+console.log(palindrome("_eye")); // True
+console.log(palindrome("race car")); // True
+console.log(palindrome("nope")); // False
+console.log(palindrome("0_0 (: /-\ :) 0-0")); // True
+console.log(palindrome("five|\_/|four")); // False
+
+/*
+Convert the given number into a roman numeral.
+All roman numerals answers should be provided in upper-case.
+*/
+function convertToRoman(num) {
+let romanNumbers = ["I", "V", "X", "L", "C", "D", "M"];
+let arabicNumbers = [1, 5, 10, 50, 100, 500, 1000];
+}
+
+console.log(convertToRoman(3));
+console.log(convertToRoman(4));
+console.log(convertToRoman(5));
+console.log(convertToRoman(9));
+console.log(convertToRoman(29));
+/*
+One of the simplest and most widely known ciphers is a Caesar cipher, also known as a shift cipher. 
+In a shift cipher the meanings of the letters are shifted by some set amount.
+A common modern use is the ROT13 cipher, where the values of the letters are shifted by 13 places. Thus 'A' ↔ 'N', 'B' ↔ 'O' and so on.
+Write a function which takes a ROT13 encoded string as input and returns a decoded string.
+All letters will be uppercase. Do not transform any non-alphabetic character (i.e. spaces, punctuation), but do pass them on.
+*/
+/*
+function rot13(str) {
+  let alphabet = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz".toUpperCase().split("");
+  let input = str.split("");
+  let result = [];
+  for(let i = 0; i < input.length; i++) {
+    /\W/.test(input[i]) ? result.push(input[i]) : result.push(alphabet[alphabet.indexOf(input[i]) + 13]); 
+  }
+  return result.join("");
+}
+*/
+function rot13(str) {
+  let alphabet = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz".toUpperCase().split("");
+  let input = str.split("");
+  let result = [];
+  input.map(el => {
+    /\W/.test(el) ? result.push(el) : result.push(alphabet[alphabet.indexOf(el) + 13]); 
+  })
+  return result.join("");
+} 
+console.log(rot13("SERR PBQR PNZC")); // Free Code Camp
+console.log(rot13("SERR YBIR?")); // Free love?
+console.log(rot13("GUR DHVPX OEBJA SBK WHZCF BIRE GUR YNML QBT.")) // THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.
+
+/*
+Return true if the passed string looks like a valid US phone number.
+The user may fill out the form field any way they choose as long as it has the format of a valid US number. 
+The following are examples of valid formats for US numbers (refer to the tests below for other variants):
+555-555-5555
+(555)555-5555
+(555) 555-5555
+555 555 5555
+5555555555
+1 555 555 5555
+For this challenge you will be presented with a string such as 800-692-7753 or 8oo-six427676;laskdjf. 
+Your job is to validate or reject the US phone number based on any combination of the formats provided above. The area code is required.
+If the country code is provided, you must confirm that the country code is 1. Return true if the string is a valid US phone number; otherwise return false.
+*/
+function telephoneCheck(str) {
+  var regex = /^(1\s?)?(\(\d{3}\)|\d{3})[\s\-]?\d{3}[\s\-]?\d{4}$/;
+  return regex.test(str);
+}
+console.log(telephoneCheck("1 555-555-5555")); // True
+console.log(telephoneCheck("1 (555) 555-5555")); // True
+console.log(telephoneCheck("5555555555")); // True
+console.log(telephoneCheck("1(555)555-5555")); // True
+console.log(telephoneCheck("555-5555")); // False
+console.log(telephoneCheck("1 555)555-5555")); // False
+console.log(telephoneCheck("123**&!!asdf#")); // False
+
+/*
+Design a cash register drawer function checkCashRegister() that accepts purchase price as the first argument (price), 
+payment as the second argument (cash), and cash-in-drawer (cid) as the third argument.
+cid is a 2D array listing available currency.
+The checkCashRegister() function should always return an object with a status key and a change key.
+Return {status: "INSUFFICIENT_FUNDS", change: []} if cash-in-drawer is less than the change due, or if you cannot return the exact change.
+Return {status: "CLOSED", change: [...]} with cash-in-drawer as the value for the key change if it is equal to the change due.
+Otherwise, return {status: "OPEN", change: [...]}, with the change due in coins and bills, sorted in highest to lowest order, as the value of the change key.
+Currency Unit	Amount
+Penny	$0.01 (PENNY)
+Nickel	$0.05 (NICKEL)
+Dime	$0.1 (DIME)
+Quarter	$0.25 (QUARTER)
+Dollar	$1 (ONE)
+Five Dollars	$5 (FIVE)
+Ten Dollars	$10 (TEN)
+Twenty Dollars	$20 (TWENTY)
+One-hundred Dollars	$100 (ONE HUNDRED)
+*/
+function checkCashRegister(price, cash, cid) {
+  let sumOfReturn = cid.reduce((acc, value) => {
+    return acc + value[1]
+  }, 0);
+  let differenceToReturn = cash - price;
+  function Result(status, change) {
+    this.status = status;
+    this.change = change;
+}
+console.log(differenceToReturn)
+  if(differenceToReturn === sumOfReturn) {
+    return new Result("CLOSED", cid)
+  } else if(differenceToReturn > sumOfReturn) {
+    return new Result("INSUFFICIENT_FUNDS", [])
+  }
+}
+console.log(checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]));
+// {status: "OPEN", change: [["QUARTER", 0.5]]}
+console.log(checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]));
+// {status: "OPEN", change: [["TWENTY", 60], ["TEN", 20], ["FIVE", 15], ["ONE", 1], ["QUARTER", 0.5], ["DIME", 0.2], ["PENNY", 0.04]]}
+console.log(checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
+// {status: "INSUFFICIENT_FUNDS", change: []}
+console.log(checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
+// {status: "INSUFFICIENT_FUNDS", change: []}
+console.log(checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
+// {status: "CLOSED", change: [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]}
+    </script>
+  </body>
+</html>
